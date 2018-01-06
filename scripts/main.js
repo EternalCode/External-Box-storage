@@ -1,3 +1,35 @@
+let wallpaper_tiles = new Image();
+wallpaper_tiles.src = "images/wallpaper.PNG";
+
+let canvas = document.getElementById("ingame_pc");
+let context = canvas.getContext("2d");
+let viewing_box = 0;
+
+$(document).ready( function() {
+
+    canvas.width = 240;
+    canvas.height = 160;
+    draw_pc(canvas, context);
+});
+
+
+function draw_pc() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(wallpaper_tiles, 0, 0, 240, 160, 0, 0, 240, 160);
+    // check if user PC has been added
+    if (pc_box.length == 0) {
+        context.fillStyle = "#000000";
+    	context.font = "20px Roboto Mono";
+    	font_len = context.measureText("Load a save first").width
+    	context.fillText("Load a save first", canvas.width - font_len - 20, 100);
+    } else {
+
+    }
+
+    requestAnimationFrame(draw_pc);
+}
+
+
 /* Read save file */
 function import_button_read_file(event) {
     if (event.target.id == 'import_button')

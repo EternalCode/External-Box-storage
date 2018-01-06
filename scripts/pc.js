@@ -28,8 +28,8 @@ function pc_sectors_organize() {
 /* Create the PC data from save blobs */
 function populate_pc(blob) {
     let this_box = [];
-    for (let i = 0; i <= 30 * BOX_COUNT; i ++) {
-        if ((i % 30 == 0) && (i > 0)) {
+    for (let i = 0; i <= BOX_SIZE * BOX_COUNT; i ++) {
+        if ((i % BOX_SIZE == 0) && (i > 0)) {
             let box_name = pstr_ascii(pc_box_properties.slice(pc_box.length * 9, (pc_box.length * 9) + 9));
             let wallpaper = pc_box_properties[pc_box_properties.length - (BOX_COUNT - pc_box.length)];
             pc_box.push(new PCBox(box_name, wallpaper, this_box));
@@ -57,4 +57,5 @@ class PCBox {
         console.log(this.data);
     }
 
+    
 }

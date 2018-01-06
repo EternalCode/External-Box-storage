@@ -68,9 +68,10 @@ function word(array) {
 function pstr_ascii(array) {
     result = "";
     for (let i = 0; i < array.length; i++) {
-        if (array[i] == "FF")
+        let c = array[i].toString(16).toUpperCase();
+        if (c == "FF")
             break;
-        result += char_encoding_map.get(array[i]);
+        result += char_encoding_map.get(c);
     }
     return result;
 }

@@ -2,6 +2,7 @@ const BOX_PKMN_SIZE = 80;
 const BOX_COUNT = 14;
 const BOX_SIZE = 30;
 let pc_box = [];
+let pc_box_properties = [];
 
 
 /* PC sectors into PC mon blobs */
@@ -13,9 +14,10 @@ function pc_sectors_organize() {
         let size = sector_properties[i - PC_SAVE_SECTOR_START].size;
         if (i == PC_SAVE_SECTOR_START) {
             blob = blob.concat(save_sectors[sector_id].data.slice(4, size));
-        } else if(i == PC_SAVE_SECTOR_END) {
+        } else if (i == PC_SAVE_SECTOR_END) {
             // don't copy wallpapers
             blob = blob.concat(save_sectors[sector_id].data.slice(0, size - 140));
+            pc_box_properties = save_sectors[sector_id].data.slice(size - 140, size);
         } else {
             blob = blob.concat(save_sectors[sector_id].data.slice(0, size));
         }
@@ -28,7 +30,7 @@ function populate_pc(blob) {
     let this_box = [];
     for (let i = 0; i <= 30 * BOX_COUNT; i ++) {
         if ((i % 30 == 0) && (i > 0)) {
-            pc_box.push(this_box);
+            pc_box.push(new PCBox("test", "wallpaper", this_box));
             this_box = [];
         }
         let pkmn = new PokemonBase(blob.slice(BOX_PKMN_SIZE * i, BOX_PKMN_SIZE * i + BOX_PKMN_SIZE));
@@ -38,4 +40,19 @@ function populate_pc(blob) {
             this_box.push(empty_mon());
         }
     }
+}
+
+
+class PCBox {
+    constructor(name, wallpaper, data) {
+        this.name = name;
+        this.wallpaper = wallpaper;
+        this.data = data;
+    }
+
+    get print() {
+        console.log(this.name);
+        console.log(this.data);
+    }
+
 }

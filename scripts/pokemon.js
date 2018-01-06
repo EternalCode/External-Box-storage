@@ -1,6 +1,6 @@
 function empty_mon() {
     let empty = [];
-    empty.length = 80;
+    empty.length = BOX_PKMN_SIZE;
     empty.fill(0);
     let mon = new PokemonBase(empty.fill(0));
     mon.nickname = "";
@@ -23,6 +23,6 @@ class PokemonBase {
         this.heart_mark = (marking & 8) | 0;
         this.checksum = half_word(array.slice(28, 30));
         this.unused = array.slice(30, 32);
-        this.data = array.slice(32, 80);
+        this.data = array.slice(32, BOX_PKMN_SIZE);
     }
 }

@@ -30,7 +30,9 @@ function populate_pc(blob) {
     let this_box = [];
     for (let i = 0; i <= 30 * BOX_COUNT; i ++) {
         if ((i % 30 == 0) && (i > 0)) {
-            pc_box.push(new PCBox("test", "wallpaper", this_box));
+            let box_name = pstr_ascii(pc_box_properties.slice(pc_box.length * 9, (pc_box.length * 9) + 9));
+            let wallpaper = pc_box_properties[pc_box_properties.length - (BOX_COUNT - pc_box.length)];
+            pc_box.push(new PCBox(box_name, wallpaper, this_box));
             this_box = [];
         }
         let pkmn = new PokemonBase(blob.slice(BOX_PKMN_SIZE * i, BOX_PKMN_SIZE * i + BOX_PKMN_SIZE));
